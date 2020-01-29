@@ -1,0 +1,42 @@
+﻿@model leave_management.Models.LeaveTypeVM
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="display: flex; justify-content:space-between;">
+    <h1>Details</h1>
+    <div>
+        <a asp-action="Index" class="btn btn-outline-secondary">Back to List</a>
+    </div>
+</div>
+<hr />
+
+<div>
+    <dl class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <dl class="row">
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd class="col-sm-9" style="text-align:center;">
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.DateCreated)
+                </dt>
+                <dd class="col-sm-9" style="text-align:center;">
+                    @Html.DisplayFor(model => model.DateCreated)
+                </dd>
+            </dl>
+            <div>
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning btn-block">Edit</a>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+
+    </dl>
+</div>
+

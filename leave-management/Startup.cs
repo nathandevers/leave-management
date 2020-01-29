@@ -55,6 +55,7 @@ namespace leave_management
       {
         app.UseDeveloperExceptionPage();
         app.UseDatabaseErrorPage();
+
       }
       else
       {
