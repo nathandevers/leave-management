@@ -1,0 +1,36 @@
+﻿@model leave_management.Models.EditLeaveAllocationVM
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="display: flex; justify-content:space-between;">
+    <h1>Editing @Model.LeaveType.Name Allocation for @Model.Employee.Firstname @Model.Employee.Lastname</h1>
+    <div>
+        <a asp-action="Details" asp-route-id="@Model.EmployeeId" class="btn btn-outline-secondary">Back To Employee Details</a>
+    </div>
+</div>
+
+<hr />
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <form asp-action="Edit" style="text-align:center">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="EmployeeId" />
+            <div class="form-group">
+                <label asp-for="NumberOfDays" class="control-label"></label>
+                <input asp-for="NumberOfDays" class="form-control" style="text-align:center" />
+                <span asp-validation-for="NumberOfDays" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-outline-primary btn-block" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+
+
