@@ -1,0 +1,134 @@
+﻿@model AdminLeaveRequestViewVM
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Leave Request Log</h1>
+
+<p>
+    <a class="btn btn-success" asp-action="Create"><i class="fa fa-plus" aria-hidden="true"></i> Add Leave For Employee</a>
+</p>
+
+<div class="row" style="text-align:center; display: flex; justify-content:space-between; align-self:center; padding-bottom: 1rem">
+        <div class="col-lg-3 col-md-6 col" style="width: 5rem;">
+            <div class="card">
+                <div class="card-body">
+                    <div>
+                        <h1 class="card-title text-warning">
+                            @Model.PendingRequests
+                            <i class="fa fa-angle-right click" aria-hidden="true"></i>
+                            <div class="info close">
+                                <i class="fa fa-angle-left" aria-hidden="true" style="display:none"></i>
+                            </div>
+                        </h1>                    
+
+                    </div>
+                    <h5 class="card-text">@Html.DisplayNameFor(model => model.PendingRequests)</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col info" style="width: 5rem; display:none;">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title text-success">@Model.ApprovedRequests</h1>
+                    <h5 class="card-text">@Html.DisplayNameFor(model => model.ApprovedRequests)</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col info" style="width: 5rem;display:none;">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title text-danger">@Model.RejectedRequests</h1>
+                    <h5 class="card-text">@Html.DisplayNameFor(model => model.RejectedRequests)</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col info" style="width: 5rem;display:none;">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title">@Model.TotalRequests</h1>
+                    <h5 class="card-text">@Html.DisplayNameFor(model => model.TotalRequests)</h5>
+                </div>
+            </div>
+        </div>
+    
+ </div>
+
+<table id="tblData" class="table">
+    <thead class="text-center">
+        <tr>
+            <th>
+                Employee Name:
+            </th>
+            <th>
+                Start Date:
+            </th>
+            <th>
+                End Date:
+            </th>
+            <th>
+                Leave Type:
+            </th>
+            <th>
+                Date Requested
+            </th>
+            <th>
+                Approval Status
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.LeaveRequests) {
+        <tr class="text-center">
+            <td>
+                @Html.DisplayFor(modelItem => item.RequestingEmployee.Firstname) @Html.DisplayFor(modelItem => item.RequestingEmployee.Lastname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LeaveType.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateRequested)
+            </td>
+            <td>
+                @if (item.Approved == true)
+                {
+                    <span class="badge badge-success">Approved</span>
+                }
+                else if (item.Approved == false)
+                {
+                    <span class="badge badge-danger">Rejected</span>
+                }
+                else
+                {
+                    <span class="badge badge-warning">Pending Approval</span>
+                }
+            </td>
+            @if (item.Approved == true || item.Approved == false)
+            {
+                <td>
+                    <a class="btn btn btn-secondary" asp-action="Details" asp-route-id="@item.Id"><i class="fa fa-lock" aria-hidden="true"></i> Review</a>
+                </td>
+            }
+            else
+            {
+                <td>
+                    <a class="btn btn btn-outline-primary" asp-action="Details" asp-route-id="@item.Id"><i class="fa fa-file" aria-hidden="true"></i> Review</a>
+                </td>
+            }
+
+        </tr>
+}
+    </tbody>
+</table>

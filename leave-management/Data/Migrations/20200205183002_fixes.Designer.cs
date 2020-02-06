@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using leave_management.Data;
 
 namespace leave_management.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200205183002_fixes")]
+    partial class fixes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -269,9 +271,6 @@ namespace leave_management.Data.Migrations
                     b.Property<string>("ApprovedById")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<bool>("Cancelled")
-                        .HasColumnType("bit");
-
                     b.Property<DateTime>("DateActioned")
                         .HasColumnType("datetime2");
 
@@ -284,10 +283,10 @@ namespace leave_management.Data.Migrations
                     b.Property<int>("LeaveTypeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("RequestComments")
+                    b.Property<string>("RequestingEmployeeId")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RequestingEmployeeId")
+                    b.Property<string>("RequestingingEmployeeId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("StartDate")
@@ -299,7 +298,7 @@ namespace leave_management.Data.Migrations
 
                     b.HasIndex("LeaveTypeId");
 
-                    b.HasIndex("RequestingEmployeeId");
+                    b.HasIndex("RequestingingEmployeeId");
 
                     b.ToTable("LeaveRequests");
                 });
@@ -531,7 +530,7 @@ namespace leave_management.Data.Migrations
 
                     b.HasOne("leave_management.Data.Employee", "RequestingEmployee")
                         .WithMany()
-                        .HasForeignKey("RequestingEmployeeId");
+                        .HasForeignKey("RequestingingEmployeeId");
                 });
 
             modelBuilder.Entity("leave_management.Models.LeaveRequestVM", b =>
